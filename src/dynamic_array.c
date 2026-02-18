@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-#include <dynamic_array.h>
+#include <dsc/dynamic_array.h>
 
 void dsc_dynamic_array_destroy(dsc_dynamic_array* array) {
     free(array->data);

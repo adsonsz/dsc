@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <dynamic_array.h>
+#include <dsc/dynamic_array.h>
 
 struct custom {
     int x;
