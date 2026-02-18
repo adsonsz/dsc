@@ -4,13 +4,11 @@
 
 void dsc_dynamic_array_destroy(dsc_dynamic_array* array) {
     free(array->data);
-    array->item_size = 0;
-    array->size = 0;
-    array->capacity = 0;
+    dsc_dynamic_array_init(array, 0);
 }
 
 void dsc_dynamic_array_free(dsc_dynamic_array* array) {
-    dsc_dynamic_array_destroy(array);
+    free(array->data);
     free(array);
 }
 
@@ -69,9 +67,7 @@ size_t dsc_dynamic_array_max_size(dsc_dynamic_array* array) {
 }
 
 void dsc_dynamic_array_reserve(dsc_dynamic_array* array, size_t capacity) {
-    void* new_data = realloc(array->data, capacity * array->item_size);
-    array->data = new_data;
-    array->capacity = capacity;
+    if (capacity > array->capacity) dsc_dynamic_array_change_capacity(array, capacity);
 }
 
 void dsc_dynamic_array_resize(dsc_dynamic_array* array, size_t size) {
@@ -80,13 +76,12 @@ void dsc_dynamic_array_resize(dsc_dynamic_array* array, size_t size) {
 }
 
 void dsc_dynamic_array_shrink_to_fit(dsc_dynamic_array* array) {
-
+    dsc_dynamic_array_change_capacity(array, array->size);
 }
 
 void dsc_dynamic_array_clear(dsc_dynamic_array* array) {
     dsc_dynamic_array_destroy(array);
 }
-
 
 void dsc_dynamic_array_push_back(dsc_dynamic_array* array, void* value) {
     // Allocate new memory if needed.
@@ -103,5 +98,16 @@ void dsc_dynamic_array_push_back(dsc_dynamic_array* array, void* value) {
 void dsc_dynamic_array_pop_back(dsc_dynamic_array* array) {
     array->size -= 1;
 
-    // TODO: Deallocate memory if needed.
+    // Deallocate memory if needed.
+    if (array->size < array->capacity/4) {
+        size_t new_capacity = array->capacity / 2;
+        if (new_capacity % 2) new_capacity++;
+        dsc_dynamic_array_change_capacity(array, new_capacity);
+    }
+}
+
+void dsc_dynamic_array_change_capacity(dsc_dynamic_array* array, size_t capacity) {
+    void* new_data = realloc(array->data, capacity * array->item_size);
+    array->data = new_data;
+    array->capacity = capacity;
 }

@@ -1,5 +1,5 @@
-#ifndef DSC_DYNAMIC_ARRAY
-#define DSC_DYNAMIC_ARRAY
+#ifndef DSC_DYNAMIC_ARRAY_H
+#define DSC_DYNAMIC_ARRAY_H
 #include <stddef.h>
 
 typedef struct dsc_dynamic_array {
@@ -37,8 +37,14 @@ void dsc_dynamic_array_reserve(dsc_dynamic_array* array, size_t capacity);  // A
 void dsc_dynamic_array_resize(dsc_dynamic_array* array, size_t size);       // Alocate and initialize.
 void dsc_dynamic_array_shrink_to_fit(dsc_dynamic_array* array);             // Shrink capacity to fit array.
 
-// Adding and deleting items. O(1) amortized.
-void dsc_dynamic_array_clear(dsc_dynamic_array* array);                     // Delete all data.
+// Clear array.
+void dynamic_array_clear(dsc_dynamic_array* array);                     // Delete all data.
+
+// Adding and deleting items at arbitrary position. O(N).
+void dsc_dynamic_array_add_at(dsc_dynamic_array* array, size_t index, void* value);
+void dsc_dynamic_array_delete_at(dsc_dynamic_array* array, size_t index);
+
+// Adding and deleting items at the back. O(1) amortized.
 void dsc_dynamic_array_push_back(dsc_dynamic_array* array, void* value);    // Add last item.
 void dsc_dynamic_array_pop_back(dsc_dynamic_array* array);                  // Delete last item.
 
