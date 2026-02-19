@@ -38,7 +38,7 @@ void dsc_dynamic_array_resize(dsc_dynamic_array* array, size_t size);       // A
 void dsc_dynamic_array_shrink_to_fit(dsc_dynamic_array* array);             // Shrink capacity to fit array.
 
 // Clear array.
-void dynamic_array_clear(dsc_dynamic_array* array);                     // Delete all data.
+void dsc_dynamic_array_clear(dsc_dynamic_array* array);
 
 // Adding and deleting items at arbitrary position. O(N).
 void dsc_dynamic_array_add_at(dsc_dynamic_array* array, size_t index, void* value);
@@ -49,7 +49,7 @@ void dsc_dynamic_array_push_back(dsc_dynamic_array* array, void* value);    // A
 void dsc_dynamic_array_pop_back(dsc_dynamic_array* array);                  // Delete last item.
 
 // Internal. Not intended for use. Data might be lost if misused.
-// Change capacity of the dsc_dynamic_arraytor, by allocating and deallocating space. O(size).
+// Change capacity by allocating or deallocating space. O(size).
 void dsc_dynamic_array_change_capacity(dsc_dynamic_array* array, size_t capacity);
 
 #endif

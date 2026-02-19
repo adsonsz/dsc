@@ -51,7 +51,7 @@ void* dsc_dynamic_array_at(dsc_dynamic_array* array, size_t index) {
 }
 
 void dsc_dynamic_array_set_at(dsc_dynamic_array* array, size_t index, void* value) {
-    memcpy(array->data + array->size * array->item_size, value, array->item_size);
+    memcpy((char*)array->data + index * array->item_size, value, array->item_size);
 }
 
 bool dsc_dynamic_array_is_empty(dsc_dynamic_array* array) {
