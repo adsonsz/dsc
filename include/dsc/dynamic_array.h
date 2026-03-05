@@ -58,7 +58,7 @@ void dsc_dynamic_array_change_capacity(dsc_dynamic_array* array, size_t capacity
 
 // Iterators.
 void dsc_dynamic_array_iterator_next(dsc_dynamic_array* array, dsc_dynamic_array_iterator* it);
-dsc_dynamic_array_iterator* dsc_dynamic_array_iterator_begin(dsc_dynamic_array* array);
+dsc_dynamic_array_iterator dsc_dynamic_array_iterator_begin(dsc_dynamic_array* array);
 bool dsc_dynamic_array_iterator_is_end(dsc_dynamic_array* array, dsc_dynamic_array_iterator* it);
 bool dsc_dynamic_array_iterator_is_equal(dsc_dynamic_array_iterator* it, dsc_dynamic_array_iterator* other);
 

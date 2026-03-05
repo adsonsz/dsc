@@ -1,7 +1,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <dsc/dynamic_array.h>
+
+#ifdef DSC_DEBUG
 #include <stdio.h>
+#endif
 
 void dsc_dynamic_array_destroy(dsc_dynamic_array* array) {
     #ifdef DSC_DEBUG
@@ -242,9 +245,9 @@ void dsc_dynamic_array_iterator_next(dsc_dynamic_array* array, dsc_dynamic_array
     it->pointer = (void*)p;
 }
 
-dsc_dynamic_array_iterator* dsc_dynamic_array_iterator_begin(dsc_dynamic_array* array) {
-    dsc_dynamic_array_iterator* it = malloc(sizeof(dsc_dynamic_array_iterator));
-    it->pointer = array->data;
+dsc_dynamic_array_iterator dsc_dynamic_array_iterator_begin(dsc_dynamic_array* array) {
+    dsc_dynamic_array_iterator it;
+    it.pointer = array->data;
     return it;
 }
 

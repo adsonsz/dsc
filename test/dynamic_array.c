@@ -50,8 +50,7 @@ void iterator_test() {
 
     // Push back
     for (int i = 0; i < 10; ++i) {
-        int c = i;
-        dsc_dynamic_array_push_back(&array, &c);
+        dsc_dynamic_array_push_back(&array, &i);
     };
 
     // Test values
@@ -62,9 +61,9 @@ void iterator_test() {
 
     // Test values using iterator
     int counter = 0;
-    dsc_dynamic_array_iterator* it = dsc_dynamic_array_iterator_begin(&array);
-    for (; !dsc_dynamic_array_iterator_is_end(&array, it); dsc_dynamic_array_iterator_next(&array, it)) {
-        int* value = (int*)it->pointer;
+    dsc_dynamic_array_iterator it = dsc_dynamic_array_iterator_begin(&array);
+    for (; !dsc_dynamic_array_iterator_is_end(&array, &it); dsc_dynamic_array_iterator_next(&array, &it)) {
+        int* value = (int*)it.pointer;
         printf("[%d] value=%d\n", counter, *value);
         assert(*value == counter);
         ++counter;
