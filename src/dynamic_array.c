@@ -235,3 +235,23 @@ void dsc_dynamic_array_change_capacity(dsc_dynamic_array* array, size_t capacity
     array->data = new_data;
     array->capacity = capacity;
 }
+
+void dsc_dynamic_array_iterator_next(dsc_dynamic_array* array, dsc_dynamic_array_iterator* it) {
+    char* p = (char*)it->pointer;
+    p += array->item_size;
+    it->pointer = (void*)p;
+}
+
+dsc_dynamic_array_iterator* dsc_dynamic_array_iterator_begin(dsc_dynamic_array* array) {
+    dsc_dynamic_array_iterator* it = malloc(sizeof(dsc_dynamic_array_iterator));
+    it->pointer = array->data;
+    return it;
+}
+
+bool dsc_dynamic_array_iterator_is_end(dsc_dynamic_array* array, dsc_dynamic_array_iterator* it) {
+    return (char*)it->pointer == (char*)array->data + array->item_size * array->size;
+}
+
+bool dsc_dynamic_array_iterator_is_equal(dsc_dynamic_array_iterator* it, dsc_dynamic_array_iterator* other){ 
+    return it->pointer == other->pointer;
+}

@@ -1,5 +1,6 @@
 #include <dsc/dynamic_array.h>
 #include <assert.h>
+#include <stdio.h>
 
 void integer_pushback() {
     dsc_dynamic_array arr;
@@ -43,6 +44,34 @@ void integer_pushback() {
     assert(arr.capacity == 0);
 }
 
+void iterator_test() {
+    dsc_dynamic_array array;
+    dsc_dynamic_array_init(&array, sizeof(int));
+
+    // Push back
+    for (int i = 0; i < 10; ++i) {
+        int c = i;
+        dsc_dynamic_array_push_back(&array, &c);
+    };
+
+    // Test values
+    for (int i = 0; i < 10; ++i) {
+        int* value = (int*)dsc_dynamic_array_at(&array, i);
+        assert(*value == i);
+    }
+
+    // Test values using iterator
+    int counter = 0;
+    dsc_dynamic_array_iterator* it = dsc_dynamic_array_iterator_begin(&array);
+    for (; !dsc_dynamic_array_iterator_is_end(&array, it); dsc_dynamic_array_iterator_next(&array, it)) {
+        int* value = (int*)it->pointer;
+        printf("[%d] value=%d\n", counter, *value);
+        assert(*value == counter);
+        ++counter;
+    }
+}
+
 int main() {
     integer_pushback();
+    iterator_test();
 }

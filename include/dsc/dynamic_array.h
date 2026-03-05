@@ -9,6 +9,10 @@ typedef struct dsc_dynamic_array {
     size_t capacity;   // allocated capacity (how many items it fits) 
 } dsc_dynamic_array;
 
+typedef struct dsc_dynamic_array_iterator {
+    void* pointer;
+} dsc_dynamic_array_iterator;
+
 // Destructors. O(1)
 void dsc_dynamic_array_destroy(dsc_dynamic_array* array);
 void dsc_dynamic_array_free(dsc_dynamic_array* array);
@@ -49,7 +53,14 @@ void dsc_dynamic_array_push_back(dsc_dynamic_array* array, void* value);    // A
 void dsc_dynamic_array_pop_back(dsc_dynamic_array* array);                  // Delete last item.
 
 // Internal. Not intended for use. Data might be lost if misused.
-// Change capacity by allocating or deallocating space. O(size).
+// Forces capacity to change by allocating or deallocating space. O(size).
 void dsc_dynamic_array_change_capacity(dsc_dynamic_array* array, size_t capacity);
+
+// Iterators.
+void dsc_dynamic_array_iterator_next(dsc_dynamic_array* array, dsc_dynamic_array_iterator* it);
+dsc_dynamic_array_iterator* dsc_dynamic_array_iterator_begin(dsc_dynamic_array* array);
+bool dsc_dynamic_array_iterator_is_end(dsc_dynamic_array* array, dsc_dynamic_array_iterator* it);
+bool dsc_dynamic_array_iterator_is_equal(dsc_dynamic_array_iterator* it, dsc_dynamic_array_iterator* other);
+
 
 #endif
